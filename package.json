@@ -2,22 +2,26 @@
   "name": "bulk_canvas",
   "version": "1.0.0",
   "description": "create png images bulk",
-  "main": "index.html",
+  "main": "app/build/index.html",
   "scripts": {
-    "start": "parcel serve index.html",
-    "build": "parcel build index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www",
+    "dev": "parcel serve ./app/index.html",
+    "build": "parcel build ./app/index.html",
+    "build-backend": "babel src --out-dir build --presets=@babel/preset-env",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "@babel/node": "^7.12.6",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  },
-  "devDependencies": {
+    "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
     "@parcel/config-default": "^2.0.0-beta.1",
     "@parcel/transformer-raw": "^2.0.0-beta.1",
-    "parcel": "^2.0.0-beta.1"
+    "parcel": "^2.0.0-beta.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "author": " <luiscasillas@n12.mx>",
   "license": "ISC"
