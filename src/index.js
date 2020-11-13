@@ -11,8 +11,7 @@ import helmet from "helmet";
 import cors from "cors";
 import bodyParser from "body-parser";
 // import * as Sentry from "@sentry/node";
-import mongooseConnection from "./config/connection";
-import routes from "./routes";
+// import routes from "./routes";
 // import { catchFirst, catchAll } from "./middlewares";
 
 dotenv.config();
@@ -36,13 +35,13 @@ if (process.env.NODE_ENV === "development") {
     "http://localhost:3001"
   ];
   app.use(logger("dev"));
-  mongooseConnection(process.env.MONGODB_DEV);
+  // mongooseConnection(process.env.MONGODB_DEV);
 } else {
   whiteList = [
     "http://www.designweekpuebla.com",
     "https://www.designweekpuebla.com"
   ];
-  mongooseConnection(process.env.MONGODB_URI);
+  // mongooseConnection(process.env.MONGODB_URI);
 }
 
 const corsOptions = {
@@ -84,7 +83,7 @@ app.use(
 //   }
 // });
 
-app.use("/api", routes);
+// app.use("/api", routes);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

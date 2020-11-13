@@ -12,6 +12,8 @@ node_modules/
 jspm_packages/
 .cache
 dist
+app/build
+build
 .parcel-cache
 
 .DS_Store
