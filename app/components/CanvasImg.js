@@ -11,7 +11,7 @@ const loadImage = url => {
   });
 };
 
-function CanvasImg({ image, name, namePos, initialSize, pos, addURL }) {
+function CanvasImg({ image, name, namePos, initialSize, allDownload }) {
   const canvasRef = useRef();
   const parentRef = useRef();
   const [size, setSize] = useState(initialSize);
@@ -71,10 +71,9 @@ function CanvasImg({ image, name, namePos, initialSize, pos, addURL }) {
         ctx.rotate(-nextRot);
         const result = canvasRef.current.toDataURL();
         setImageURL(result);
-        addURL(result, pos);
         setHasDrawn(false);
         // ctx.fillText(name, size.width / 2, size.height / 2);
-      }, 100);
+      }, 200);
 
       // const canvas1 = document.createElement("canvas");
       // const ctxText = canvas1.getContext("2d");
@@ -105,6 +104,17 @@ function CanvasImg({ image, name, namePos, initialSize, pos, addURL }) {
       setHasDrawn(false);
     }
   };
+  useEffect(() => {
+    if (allDownload && imageURL) {
+      const a = document.createElement("a");
+      document.body.appendChild(a);
+      a.style = "display: none";
+      a.href = imageURL;
+      a.download = `${name}.png`;
+      a.click();
+      document.body.removeChild(a);
+    }
+  }, [allDownload, imageURL]);
   // useEffect(() => {
   //   if (canvasRef.current) {
   //     const ctx = canvasRef.current.getContext("2d");

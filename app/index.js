@@ -14,7 +14,6 @@ library.add(...fontawesomeIcons);
 function App() {
   const [canvImage, setCanvImage] = useState(false);
   const [names, setNames] = useState(false);
-  const [allURL, setAllURL] = useState([]);
   const [render, setRender] = useState(false);
   const [namePos, setNamePos] = useState({
     nameX: 200,
@@ -23,6 +22,7 @@ function App() {
     fontSize: 24
   });
   const initialSize = { width: 350, height: 400, rotate: 90, fontSize: 60 };
+  const [allDownload, setAllDownload] = useState(false);
   const toggleGenerate = () => {
     setRender(!render);
   };
@@ -32,23 +32,23 @@ function App() {
   const handleSetNamePos = ({ target: { name, value } }) => {
     setNamePos({ ...namePos, [name]: value });
   };
-  const handleAddURL = (url, pos) => {
-    const nextArr = [...allURL];
-    nextArr[pos] = url;
-    setAllURL(nextArr);
-  };
   const handleDownloadAll = () => {
-    allURL.forEach((url, i) => {
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.style = "display: none";
-
-      a.href = url;
-      a.download = `${names[i]}.png`;
-      a.click();
-      document.body.removeChild(a);
-    });
+    setAllDownload(true);
+    setTimeout(() => setAllDownload(false), 1000);
   };
+
+  // const handleDownloadAll = () => {
+  //   allURL.forEach((url, i) => {
+  //     const a = document.createElement("a");
+  //     document.body.appendChild(a);
+  //     a.style = "display: none";
+  //
+  //     a.href = url;
+  //     a.download = `${names[i]}.png`;
+  //     a.click();
+  //     document.body.removeChild(a);
+  //   });
+  // };
   return (
     <Container tag="main" className="container">
       <Row>
@@ -74,7 +74,7 @@ function App() {
           </Button>
         </Col>
         <Col>
-          {allURL.length > 0 && (
+          {render && (
             <Button color="primary" onClick={handleDownloadAll}>
               Descargar todo <FontAwesomeIcon icon="download" />
             </Button>
@@ -88,9 +88,8 @@ function App() {
             <CanvasImg
               initialSize={initialSize}
               namePos={namePos}
-              addURL={handleAddURL}
+              allDownload={allDownload}
               key={i}
-              pos={i}
               image={canvImage}
               name={name}
             />
