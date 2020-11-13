@@ -1,3 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap");
+
 html {
-  font-family: sans-serif;
+  font-family: "Nunito", sans-serif;
+}
+
+.input_files.hovered {
+  box-shadow: 0 0 0 0.2rem rgba(11, 210, 255, 0.5);
+}
+
+.abs_cont {
+  position: relative;
+}
+
+.refresh_render {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
 }
