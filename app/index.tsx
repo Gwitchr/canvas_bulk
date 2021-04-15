@@ -9,13 +9,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 
+import { INamePos } from "./types";
+
 library.add(...fontawesomeIcons);
 
-function App() {
-  const [canvImage, setCanvImage] = useState(false);
-  const [names, setNames] = useState(false);
-  const [render, setRender] = useState(false);
-  const [namePos, setNamePos] = useState({
+function App(): JSX.Element {
+  const [canvImage, setCanvImage] = useState<string | ArrayBuffer | null>(null);
+  const [names, setNames] = useState<string[] | null>(null);
+  const [render, setRender] = useState<boolean>(false);
+  const [namePos, setNamePos] = useState<INamePos>({
     nameX: 200,
     nameY: 200,
     rotName: -4,
@@ -26,7 +28,7 @@ function App() {
   const toggleGenerate = () => {
     setRender(!render);
   };
-  const handleGenerate = val => {
+  const handleGenerate = (val: string[]) => {
     setNames(val);
   };
   const handleSetNamePos = ({ target: { name, value } }) => {
@@ -82,7 +84,8 @@ function App() {
         </Col>
       </Row>
       <Row>
-        {names.length > 0 &&
+        {names &&
+          names.length > 0 &&
           render &&
           names.map((name, i) => (
             <CanvasImg

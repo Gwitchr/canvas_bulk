@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const loadImage = url => {
+const loadImage = (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
@@ -12,14 +12,16 @@ const loadImage = url => {
 };
 
 function CanvasImg({ image, name, namePos, initialSize, allDownload }) {
-  const canvasRef = useRef();
-  const parentRef = useRef();
-  const [size, setSize] = useState(initialSize);
+  const canvasRef = useRef(null);
+  const parentRef = useRef(null);
+  const [size] = useState(initialSize);
   const [hasDrawn, setHasDrawn] = useState(false);
   const [imageURL, setImageURL] = useState("");
   useEffect(() => {
-    async function draw() {
-      const ctx = canvasRef.current.getContext("2d");
+    async function draw(): Promise<void> {
+      const ctx: CanvasRenderingContext2D | null =
+        canvasRef.current && canvasRef.current.getContext("2d");
+
       ctx.save();
       const bgImg = await loadImage(image);
       const rel = bgImg.height / bgImg.width;
@@ -108,7 +110,7 @@ function CanvasImg({ image, name, namePos, initialSize, allDownload }) {
     if (allDownload && imageURL) {
       const a = document.createElement("a");
       document.body.appendChild(a);
-      a.style = "display: none";
+      a.style.display = "none";
       a.href = imageURL;
       a.download = `${name}.png`;
       a.click();

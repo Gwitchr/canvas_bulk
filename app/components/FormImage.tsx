@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-  Col,
-  Form,
-  Row,
-  FormGroup,
-  Input,
-  Label,
-  CustomInput
-} from "reactstrap"; // import
+import React, { useState, DragEvent } from "react";
+import { Col, Form, FormGroup, Input, Label, CustomInput } from "reactstrap"; // import
 
 function FormImage({ setFile, setNames, setNamePos, initialSize, namePos }) {
   const [hovered, setHovered] = useState(false);
@@ -20,7 +12,7 @@ function FormImage({ setFile, setNames, setNamePos, initialSize, namePos }) {
     };
     reader.readAsDataURL(files[0]);
   };
-  const handleDrop = e => {
+  const handleDrop = (e: DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     const { files } = e.dataTransfer;
